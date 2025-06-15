@@ -1,3 +1,4 @@
+"use strict";
 // Initialize variables from DOM elements
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll(".btn");
