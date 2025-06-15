@@ -1,0 +1,3 @@
+Create buttons for digits 0-9.
+Include buttons for operators: +, -, ×, ÷, =, and C (clear).
+Provide an input field or a display area to show the current expression and result.

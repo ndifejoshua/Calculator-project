@@ -1,0 +1,110 @@
+const display = document.getElementById("display");
+const buttons = document.querySelectorAll(".btn");
+const themeToggle = document.getElementById("themeToggle");
+const calculator = document.querySelector(".calculator");
+const body = document.body;
+const toggleHistory = document.getElementById("toggleHistory");
+const historyContainer = document.getElementById("history");
+const historyList = document.getElementById("history-list");
+
+let currentExpression = "";
+
+// Toggle History
+toggleHistory.addEventListener("click", () => {
+  historyContainer.classList.toggle("hidden");
+});
+
+// Clear History
+document.getElementById("clearHistory").addEventListener("click", () => {
+  historyList.innerHTML = "";
+});
+
+// Button Input Handling
+buttons.forEach((button) => {
+  const value = button.dataset.value;
+  if (!value || value === "clear" || value === "backspace" || value === "=")
+    return;
+
+  button.addEventListener("click", () => {
+    currentExpression += value === "**" ? "^" : value;
+    display.textContent = currentExpression;
+  });
+});
+
+// Equal (=)
+document.querySelector(".btn--equality").addEventListener("click", () => {
+  try {
+    const evalExpression = currentExpression.replace(/\^/g, "**");
+    const result = eval(evalExpression);
+    display.textContent = result;
+    const historyEntry = document.createElement("div");
+    historyEntry.textContent = `${currentExpression} = ${result}`;
+    historyList.appendChild(historyEntry); // Add to the bottom
+
+    // Limit to last 10
+    while (historyList.children.length > 10) {
+      historyList.removeChild(historyList.firstChild); //Remove oldest entry
+    }
+
+    currentExpression = result.toString();
+  } catch {
+    display.textContent = "Error";
+    currentExpression = "";
+  }
+});
+
+// Clear (C)
+document.querySelector(".btn--clear").addEventListener("click", () => {
+  currentExpression = "";
+  display.textContent = "";
+});
+
+// Backspace
+document.querySelector(".btn--backspace").addEventListener("click", () => {
+  currentExpression = currentExpression.slice(0, -1);
+  display.textContent = currentExpression;
+});
+
+// Keyboard Support
+document.addEventListener("keydown", (e) => {
+  const key = e.key;
+  if (/[\d+\-*/.^%]/.test(key)) {
+    currentExpression += key === "^" ? "^" : key;
+    display.textContent = currentExpression;
+  } else if (key === "Enter" || key === "=") {
+    try {
+      const evalExpression = currentExpression.replace(/\^/g, "**");
+      const result = eval(evalExpression);
+      display.textContent = result;
+      const historyEntry = document.createElement("div");
+      historyEntry.textContent = `${currentExpression} = ${result}`;
+      historyList.appendChild(historyEntry);
+      while (historyList.children.length > 10) {
+        historyList.removeChild(historyList.firstChild);
+      }
+      currentExpression = result.toString();
+    } catch {
+      display.textContent = "Error";
+      currentExpression = "";
+    }
+  } else if (key === "Backspace") {
+    currentExpression = currentExpression.slice(0, -1);
+    display.textContent = currentExpression;
+  } else if (key === "Escape") {
+    currentExpression = "";
+    display.textContent = "";
+  }
+});
+
+// Theme Toggle
+themeToggle.addEventListener("click", () => {
+  const isDark = body.classList.toggle("dark-mode");
+  body.classList.toggle("light-mode", !isDark);
+  calculator.classList.toggle("dark", isDark);
+  calculator.classList.toggle("light", !isDark);
+  themeToggle.textContent = isDark ? "☀️" : "🌙";
+});
+
+// Set Default Theme
+body.classList.add("dark-mode");
+calculator.classList.add("dark");
