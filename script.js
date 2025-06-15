@@ -1,3 +1,4 @@
+// Initialize variables from DOM elements
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll(".btn");
 const themeToggle = document.getElementById("themeToggle");
@@ -39,9 +40,9 @@ document.querySelector(".btn--equality").addEventListener("click", () => {
     display.textContent = result;
     const historyEntry = document.createElement("div");
     historyEntry.textContent = `${currentExpression} = ${result}`;
-    historyList.appendChild(historyEntry); // Add to the bottom
+    historyList.appendChild(historyEntry); // Add latest entry to the bottom
 
-    // Limit to last 10
+    // Limit to last 10 evaluation
     while (historyList.children.length > 10) {
       historyList.removeChild(historyList.firstChild); //Remove oldest entry
     }
@@ -68,7 +69,8 @@ document.querySelector(".btn--backspace").addEventListener("click", () => {
 // Keyboard Support
 document.addEventListener("keydown", (e) => {
   const key = e.key;
-  if (/[\d+\-*/.^%]/.test(key)) {
+  if (/[\d+\-*/.^%]/.test(key)) // If the key is a digit, operator, decimal, or percent, append it to the current expression
+  {
     currentExpression += key === "^" ? "^" : key;
     display.textContent = currentExpression;
   } else if (key === "Enter" || key === "=") {
@@ -76,12 +78,15 @@ document.addEventListener("keydown", (e) => {
       const evalExpression = currentExpression.replace(/\^/g, "**");
       const result = eval(evalExpression);
       display.textContent = result;
+
+      // Add the calculation and result to history
       const historyEntry = document.createElement("div");
       historyEntry.textContent = `${currentExpression} = ${result}`;
       historyList.appendChild(historyEntry);
       while (historyList.children.length > 10) {
         historyList.removeChild(historyList.firstChild);
       }
+       // Set current expression to result for continued calculations and show error if evaluation fails and reset current expression
       currentExpression = result.toString();
     } catch {
       display.textContent = "Error";
@@ -90,7 +95,9 @@ document.addEventListener("keydown", (e) => {
   } else if (key === "Backspace") {
     currentExpression = currentExpression.slice(0, -1);
     display.textContent = currentExpression;
-  } else if (key === "Escape") {
+  }
+     // If Escape is pressed, clear the expression and display
+  else if (key === "Escape") {
     currentExpression = "";
     display.textContent = "";
   }
