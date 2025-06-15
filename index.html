@@ -39,23 +39,18 @@
       <div class="display" id="display"></div> <!-- Calculator display -->
 
       <div class="buttons">
+        <div class="digits__grid">
         <button type="button" data-value="1" class="btn">1</button>
         <button type="button" data-value="2" class="btn">2</button>
         <button type="button" data-value="3" class="btn">3</button>
-        <button type="button" data-value="*" class="btn btn--operand">x</button>
-        <button type="button" data-value="/" class="btn btn--operand">÷</button>
 
         <button type="button" data-value="4" class="btn">4</button>
         <button type="button" data-value="5" class="btn">5</button>
         <button type="button" data-value="6" class="btn">6</button>
-        <button type="button" data-value="+" class="btn btn--operand">+</button>
-        <button type="button" data-value="-" class="btn btn--operand">-</button>
 
         <button type="button" data-value="7" class="btn">7</button>
         <button type="button" data-value="8" class="btn">8</button>
         <button type="button" data-value="9" class="btn">9</button>
-        <button type="button" data-value="%" class="btn btn--operand">%</button>
-        <button type="button" data-value="**" class="btn btn--operand">^</button>
 
         <button type="button" data-value="." class="btn">.</button>
         <button type="button" data-value="0" class="btn">0</button>
@@ -67,9 +62,20 @@
             width="24px"
           />
         </button>
+        </div>
+        <div class="operator__grid">
+        <button type="button" data-value="*" class="btn btn--operand">x</button>
+        <button type="button" data-value="/" class="btn btn--operand">÷</button>
+        
+        <button type="button" data-value="+" class="btn btn--operand">+</button>
+        <button type="button" data-value="-" class="btn btn--operand">-</button>
+        
+        <button type="button" data-value="%" class="btn btn--operand">%</button>
+        <button type="button" data-value="**" class="btn btn--operand">^</button>
         
         <button type="button" data-value="=" class="btn btn--equality">=</button>
         <button type="button" data-value="clear" class="btn btn--clear">C</button>
+          </div>
       </div>
     </div>
   </main>
