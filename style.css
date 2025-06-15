@@ -7,7 +7,11 @@
     --bg-btn-light: #e0e0e0;
    --bg-btn-operand: #f49d1a;
 }
-
+@media screen and (max-width: 30rem) {
+  .buttons {
+    grid-template-columns: repeat(4, minmax(0, 1fr)); 
+  }
+}
 /* Base Reset  */
 html {
  /* default-font-size: 16px = 1rem 
