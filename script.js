@@ -8,7 +8,8 @@ const toggleHistory = document.getElementById("toggleHistory");
 const historyContainer = document.getElementById("history");
 const historyList = document.getElementById("history-list");
 
-let currentExpression = "";
+let currentExpression = "0";
+display.textContent = "0";
 
 // Toggle History
 toggleHistory.addEventListener("click", () => {
@@ -27,7 +28,8 @@ buttons.forEach((button) => {
     return;
 
   button.addEventListener("click", () => {
-    currentExpression += value === "**" ? "^" : value;
+    currentExpression =
+      currentExpression === "0" ? (value === "**" ? "^" : value) : currentExpression + (value === "**" ? "^" : value);
     display.textContent = currentExpression;
   });
 });
@@ -50,19 +52,20 @@ document.querySelector(".btn--equality").addEventListener("click", () => {
     currentExpression = result.toString();
   } catch {
     display.textContent = "Error";
-    currentExpression = "";
+    currentExpression = "0";
   }
 });
 
 // Clear (C)
 document.querySelector(".btn--clear").addEventListener("click", () => {
-  currentExpression = "";
-  display.textContent = "";
+  currentExpression = "0";
+  display.textContent = "0";
 });
 
 // Backspace
 document.querySelector(".btn--backspace").addEventListener("click", () => {
   currentExpression = currentExpression.slice(0, -1);
+  if (currentExpression === "") currentExpression = "0";
   display.textContent = currentExpression;
 });
 
@@ -71,7 +74,8 @@ document.addEventListener("keydown", (e) => {
   const key = e.key;
   if (/[\d+\-*/.^%]/.test(key)) // If the key is a digit, operator, decimal, or percent, append it to the current expression
   {
-    currentExpression += key === "^" ? "^" : key;
+    currentExpression =
+      currentExpression === "0" ? (key === "^" ? "^" : key) : currentExpression + (key === "^" ? "^" : key);
     display.textContent = currentExpression;
   } else if (key === "Enter" || key === "=") {
     try {
@@ -86,20 +90,21 @@ document.addEventListener("keydown", (e) => {
       while (historyList.children.length > 10) {
         historyList.removeChild(historyList.firstChild);
       }
-       // Set current expression to result for continued calculations and show error if evaluation fails and reset current expression
+      // Set current expression to result for continued calculations and show error if evaluation fails and reset current expression
       currentExpression = result.toString();
     } catch {
       display.textContent = "Error";
-      currentExpression = "";
+      currentExpression = "0";
     }
   } else if (key === "Backspace") {
     currentExpression = currentExpression.slice(0, -1);
+    if (currentExpression === "") currentExpression = "0";
     display.textContent = currentExpression;
   }
-     // If Escape is pressed, clear the expression and display
+  // If Escape is pressed, clear the expression and display
   else if (key === "Escape") {
-    currentExpression = "";
-    display.textContent = "";
+    currentExpression = "0";
+    display.textContent = "0";
   }
 });
 
