@@ -51,7 +51,7 @@ body {
   background-color: var(--bg-dark);
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.2rem;
   border-radius: 1rem;
   padding: 2.5rem;
 }
@@ -82,6 +82,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1.5rem;
+justify-contents:space-between;
 }
 
 /* General Button Styles */
