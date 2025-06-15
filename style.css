@@ -65,7 +65,7 @@ body {
   width: 100%;
   height: 7rem;
   padding: 1.5rem 2rem;
-    margin-bottom:2.4rem;
+ 
   overflow-x: auto; /* horizontal scroll for long inputs */
   overflow-y: hidden;
   white-space: nowrap; /* prevent wrapping */
@@ -77,10 +77,18 @@ body {
 /* Buttons Grid */
 .buttons {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
 }
 
+.digits__grid{
+display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.operator__grid{
+display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 /* General Button Styles */
 .btn {
   background: var(--bg-btn-dark);
